@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+* {
+  font-family: 'Righteous', cursive;
+}
+
+@media screen and (max-width: 600px) {
+  .vue-typer {
+    font-size: 16px;
+  }
+
+  .vue-typer .custom.char {
+    color: #FFFFFF;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  .vue-typer {
+    font-size: 20px;
+  }
+
+  .vue-typer .custom.char {
+    color: #FFFFFF;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .vue-typer {
+    font-size: 24px;
+  }
+
+  .vue-typer .custom.char {
+    color: #FFFFFF;
+  }
+}
