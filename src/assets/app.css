@@ -1,35 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap');
 
 * {
-  font-family: 'Righteous', cursive;
+  font-family: 'M PLUS 1', sans-serif;
 }
 
-@media screen and (max-width: 600px) {
-  .vue-typer {
-    font-size: 16px;
-  }
-
-  .vue-typer .custom.char {
-    color: #FFFFFF;
-  }
+.vue-typer {
+  font-size: 24px;
 }
 
-@media screen and (min-width: 600px) and (max-width: 960px) {
-  .vue-typer {
-    font-size: 20px;
-  }
-
-  .vue-typer .custom.char {
-    color: #FFFFFF;
-  }
+.vue-typer .custom.char {
+  color: #FFFFFF;
 }
 
-@media screen and (min-width: 960px) {
-  .vue-typer {
-    font-size: 24px;
-  }
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 
-  .vue-typer .custom.char {
-    color: #FFFFFF;
-  }
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.purple-heart--text {
+  color: #882DCF;
+}
+
+.lilac--text {
+  color: #D26FEB;
+}
+
+.french-rose--text {
+  color: #EE4492;
+}
+
+.fresh-air--text {
+  color: #AEE7FF;
+}
+
+.blueberry--text {
+  color: #7C75FF;
+}
+
+.aquamarine-blue--text {
+  color: #6EE3C0;
+}
+
+.heliotrope--text {
+  color: #A780F9;
 }
