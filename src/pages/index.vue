@@ -3,7 +3,7 @@
     <v-row class="header-box" justify="center" align="center">
       <v-col class="text-center" cols="12">
         <h1>
-          Port<span class="light-blue--text">folio</span>
+          Port<span class="light-blue--text">folio</span>{{ $config.googleAnalytics }}
         </h1>
         <div class="mb-8">
           <vue-typer :text="typingTextList" />
