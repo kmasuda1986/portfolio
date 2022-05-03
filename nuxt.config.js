@@ -22,6 +22,12 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID
+    },
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/app.css'
@@ -43,7 +49,12 @@ export default {
     '@nuxtjs/vuetify',
     // https://composition-api.nuxtjs.org/
     '@nuxtjs/composition-api/module',
+    '@nuxtjs/google-analytics',
   ],
+
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
