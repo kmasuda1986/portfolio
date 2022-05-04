@@ -26,6 +26,11 @@ export default {
     googleAnalytics: {
       id: process.env.GOOGLE_ANALYTICS_ID
     },
+    chainId: process.env.CHAIN_ID,
+    chianName: process.env.BC_CHAIN_NAME,
+    currencySymbol: process.env.BC_CURRENCY_SYMBOL,
+    rpcUrl: process.env.BC_RPC_URL,
+    blockExplorerUrl: process.env.BC_BLOCK_EXPLORER_URL,
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

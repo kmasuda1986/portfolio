@@ -59,3 +59,7 @@
 .heliotrope--text {
   color: #A780F9;
 }
+
+.pointer {
+  cursor: pointer;
+}

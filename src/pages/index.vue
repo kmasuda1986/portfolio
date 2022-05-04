@@ -17,7 +17,8 @@
       </v-col>
       <v-col class="text-center" cols="12">
         <p>
-          増田健太郎のポートフォリオ情報を掲載したサイトです<v-icon class="pb-1">mdi-account</v-icon>
+          増田健太郎のポートフォリオ情報を掲載したサイトです。<br>
+          現役エンジニアとしても活動しています。
         </p>
       </v-col>
     </v-row>
