@@ -54,23 +54,24 @@ export default {
     '@nuxtjs/vuetify',
     // https://composition-api.nuxtjs.org/
     '@nuxtjs/composition-api/module',
-    '@nuxtjs/google-analytics',
   ],
-
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
-  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/google-gtag',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+  },
+
+  'google-gtag': {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+    debug: false,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

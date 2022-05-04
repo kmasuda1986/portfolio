@@ -25,6 +25,28 @@
 
     <v-row class="mt-10 mb-15" justify="center" align="center">
       <v-col class="text-center" cols="12">
+        <h1>Github</h1>
+      </v-col>
+      <v-col class="text-center" cols="12">
+        <p>
+          当該サイトのソースコード<br>
+          AWS Amplify + Nuxt.js + TypeScript
+        </p>
+        <v-btn
+          color="light-blue"
+          outlined
+          @click="goto"
+        >
+          Github
+          <v-icon right>
+            mdi-github
+          </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row class="mt-10 mb-15" justify="center" align="center">
+      <v-col class="text-center" cols="12">
         <h1>スキル</h1>
       </v-col>
       <v-col cols="12" md="4">
@@ -221,10 +243,18 @@ export default defineComponent({
       }
     ])
 
+    /**
+     * goto
+     */
+    const goto = () => {
+      window.open('https://github.com/kmasuda1986/portfolio', '_blank')
+    }
+
     return {
       typingTextList,
       hashTagList,
       careerList,
+      goto,
     }
   },
 })
