@@ -1,13 +1,57 @@
 <template>
   <v-app dark>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      right
+      temporary
+    >
+      <v-list>
+        <v-list-item
+          @click="drawer = !drawer"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-close</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Close'" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="openWalletInfoDialog">
+          <v-list-item-action>
+            <v-icon v-text="'mdi-wallet-outline'" />
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'My wallet'" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title v-text="'追加機能開発中...'" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <WalletInfoDialog
+      ref="walletInfoDialog"
+      :wallet-address="walletAddress"
+    />
     <v-app-bar app>
       <v-spacer />
+      <v-app-bar-nav-icon
+        v-if="walletAddress"
+        @click="drawer = !drawer"
+      />
       <v-btn
+        v-else
         color="light-blue"
         outlined
         @click="openWalletConnectDialog"
       >
         connect
+        <v-icon right>
+          mdi-wallet
+        </v-icon>
       </v-btn>
       <WalletConnectDialog
         ref="walletConnectDialog"
@@ -41,7 +85,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref, useContext } from '@nuxtjs/composition-api'
 import useWallet from '~/composable/useWallet'
 
 export default defineComponent({
@@ -49,7 +93,8 @@ export default defineComponent({
 
   components: {
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
-    WalletConnectDialog: () => import('~/components/molecules/dialogs/WalletConnectDialog.vue')
+    WalletConnectDialog: () => import('~/components/molecules/dialogs/WalletConnectDialog.vue'),
+    WalletInfoDialog: () => import('~/components/molecules/dialogs/WalletInfoDialog.vue')
   },
 
   setup() {
@@ -74,6 +119,12 @@ export default defineComponent({
     /** Use wallet */
     const wallet = useWallet()
 
+    /** Drawer */
+    const drawer = ref(false)
+
+    /** Wallet address */
+    const walletAddress = ref<string>('')
+
     /** The snackbar */
     const theSnackbar = ref<any>(null)
 
@@ -82,6 +133,14 @@ export default defineComponent({
 
     /** Wallet connect dialog */
     const walletConnectDialog = ref<any>(null)
+
+    /** Wallet infomation dialog */
+    const walletInfoDialog = ref<any>(null)
+
+    /**
+     * onMounted
+     */
+    onMounted(() => {})
 
     /**
      * openWalletConnectDialog
@@ -92,9 +151,28 @@ export default defineComponent({
     }
 
     /**
-     * connectWallet
+     * closeWalletConnectDialog
      */
-    const connectWallet = async () => {
+    const closeWalletConnectDialog = () => {
+      const refs: any = walletConnectDialog.value
+      refs.close()
+    }
+
+    /**
+     * openWalletInfoDialog
+     */
+    const openWalletInfoDialog = () => {
+      drawer.value = false
+      const refs: any = walletInfoDialog.value
+      refs.open()
+    }
+
+    /**
+     * connectWallet
+     *
+     * @returns Promise<any>
+     */
+    const connectWallet = async (): Promise<any> => {
       try {
         const win: any = window
 
@@ -103,58 +181,24 @@ export default defineComponent({
           throw new TypeError('Metamaskが見つかりませんでした。')
         }
 
-        // 接続先が正しい場合はtrue
+        // 接続先をチェック
         const isChainId = await wallet.isChainId(chainId)
         if (!isChainId) {
-          const res: any = await wallet.switchEthereumChain(chainId)
+          // 接続先が相違する場合はスイッチ
+          await switchEthereumChain()
 
-          if (res.status === 'error') {
-            if (res.code === 4902) {
-              console.log('接続先を追加')
-              await wallet.addEthereumChain(chainId, chainName, currencySymbol, rpcUrls, blockExplorerUrl)
-            } else {
-              throw new Error(res.data.message)
-            }
+          // もう一度接続先をチェック
+          if (! await wallet.isChainId(chainId)) {
+            throw new TypeError('接続がキャンセルされました。')
           }
         }
-        /**
-        const chainId = await win.ethereum.request({ method: 'eth_chainId' })
-        if (chainId !== $config.chainId) {
-          console.log('接続先が違う')
-          const test = await win.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: `0x${$config.chainId.toString(16)}` }]
-          })
 
-          console.log('test: ', test)
-        }
-        */
+        // ウォレットに接続
+        const account = await requestAccounts()
 
-        // ウォレット接続処理
-        /*
-        const res: any = await win.ethereum.request({ method: 'eth_requestAccounts' })
-          .then((accounts: [String]) => {
-            return {
-              status: 'success',
-              data: {
-                account: accounts[0]
-              }
-            }
-          })
-          .catch((result: any) => {
-            return {
-              status: 'error',
-              data: {
-                message: result.code === 4001 ? '接続がキャンセルされました。' : '接続エラーが発生しました。'
-              }
-            }
-          })
-
-        // 接続エラーの場合は処理終了
-        if (res.status === 'error') {
-          throw new Error(res.data.message)
-        }
-        */
+        // Storeにウォレットアドレスを保存
+        wallet.setWalletAddress(account)
+        walletAddress.value = wallet.getWalletAddress()
 
         // ネットワークが変更された場合はリロード
         win.ethereum.on('chainChanged', () => {
@@ -166,6 +210,8 @@ export default defineComponent({
           window.location.reload();
         })
 
+        closeWalletConnectDialog()
+
         theSnackbarColor.value = 'success'
         theSnackbar.value.open('接続に成功しました。')
       } catch (error: any) {
@@ -174,12 +220,64 @@ export default defineComponent({
       }
     }
 
+    /**
+     * switchEthereumChain
+     *
+     * @returns Promise<any>
+     */
+    const switchEthereumChain = async (): Promise<any> => {
+      const res: any = await wallet.switchEthereumChain(chainId)
+      if (res.status === 'error') {
+        if (res.data.code === 4902) {
+          await addEthereumChain()
+        } else {
+          throw new Error(res.data.message)
+        }
+      }
+    }
+
+    /**
+     * addEthereumChain
+     *
+     * @returns Promise<any>
+     */
+    const addEthereumChain = async (): Promise<any> => {
+      const res: any = await wallet.addEthereumChain(chainId, chainName, currencySymbol, rpcUrls, blockExplorerUrl)
+
+      if (res.status === 'error') {
+        throw new Error(res.data.message)
+      }
+    }
+
+    /**
+     * requestAccounts
+     *
+     * @returns Promise<string>
+     */
+    const requestAccounts = async (): Promise<string> => {
+      const res: any = await wallet.requestAccounts()
+
+      if (res.status === 'error') {
+        throw new Error(res.data.message)
+      }
+
+      return res.data.account
+    }
+
     return {
+      drawer,
+      walletAddress,
       theSnackbar,
       theSnackbarColor,
       walletConnectDialog,
+      walletInfoDialog,
       openWalletConnectDialog,
-      connectWallet
+      closeWalletConnectDialog,
+      openWalletInfoDialog,
+      connectWallet,
+      switchEthereumChain,
+      addEthereumChain,
+      requestAccounts,
     }
   },
 })

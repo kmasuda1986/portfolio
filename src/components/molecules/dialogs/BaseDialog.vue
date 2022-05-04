@@ -12,6 +12,14 @@
         tile
       >
         <v-toolbar-title v-text="props.title" />
+        <v-spacer />
+        <v-btn
+          icon
+          dark
+          @click="isOpen = false"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </v-toolbar>
       <slot name="body" />
     </v-card>
