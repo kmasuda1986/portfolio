@@ -1,5 +1,5 @@
 <template>
-  <div class="py-15">
+  <div class="pb-10">
     <v-row class="header-box" justify="center" align="center">
       <v-col class="text-center" cols="12">
         <h1>
