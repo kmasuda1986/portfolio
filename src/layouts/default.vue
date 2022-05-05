@@ -25,6 +25,23 @@
             <v-list-item-title v-text="'My wallet'" />
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-group
+          prepend-icon="mdi-account-outline"
+          no-action
+        >
+          <template #activator>
+            <v-list-item-title>Account</v-list-item-title>
+          </template>
+          <v-list-item link to="/account/profile">
+            <v-list-item-title v-text="'Profile'" />
+            <v-list-item-action>
+              <v-btn icon>
+                <v-icon v-text="'mdi-account-outline'" />
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list-group>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title v-text="'追加機能開発中...'" />
