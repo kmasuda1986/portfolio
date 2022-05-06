@@ -5,5 +5,19 @@
       "type": "cicd",
       "lastPushTimeStamp": "2022-05-03T06:18:27.265Z"
     }
+  },
+  "api": {
+    "portfolio": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AWS_IAM"
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
   }
 }

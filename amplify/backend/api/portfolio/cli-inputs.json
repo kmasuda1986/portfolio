@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "portfolio",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/user/Kmasuda/portfolio/amplify/backend/api/portfolio/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AWS_IAM"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}
