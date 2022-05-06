@@ -10,7 +10,7 @@
       >
         <v-img
           width="150px"
-          src="./image/metamask-fox.svg"
+          :src="src"
         />
         <p>
           ウォレットに接続するとサイドメニューが解放されます。
@@ -42,6 +42,9 @@ export default defineComponent({
     /** BaseDialog */
     const baseDialog = ref(null)
 
+    /** Src */
+    const src = ref<string>(require('~/assets/image/metamask-fox.svg'))
+
     /**
      * open
      */
@@ -60,6 +63,7 @@ export default defineComponent({
 
     return {
       baseDialog,
+      src,
       open,
       close
     }
