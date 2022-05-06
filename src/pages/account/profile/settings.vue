@@ -46,6 +46,8 @@ export default defineComponent({
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
   },
 
+  middleware: ['auth'],
+
   setup() {
     /** Use wallet */
     const wallet = useWallet()
@@ -75,6 +77,11 @@ export default defineComponent({
       }
     })
 
+    /**
+     * onSave
+     *
+     * @returns Promise<any>
+     */
     const onSave = async (): Promise<any> => {
       try {
         saveBtnLoading.value = true
