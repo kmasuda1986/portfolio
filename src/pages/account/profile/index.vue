@@ -61,6 +61,8 @@ export default defineComponent({
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
   },
 
+  middleware: ['auth'],
+
   setup() {
     /** Use wallet */
     const wallet = useWallet()
