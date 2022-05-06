@@ -33,6 +33,10 @@
   line-height: 1;
 }
 
+.font-normal {
+  font-weight: 400;
+}
+
 .font-semibold {
   font-weight: 800;
 }

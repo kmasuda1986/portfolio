@@ -17,6 +17,7 @@
             <v-list-item-title v-text="'Close'" />
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item @click="openWalletInfoDialog">
           <v-list-item-action>
             <v-icon v-text="'mdi-wallet-outline'" />
@@ -93,6 +94,26 @@
         flat
         tile
       >
+        <v-card-text class="pb-0">
+          <v-btn
+            text
+            @click="router.push('/')"
+          >
+            ホーム
+          </v-btn>
+          <v-btn
+            text
+            @click="router.push('/legal/terms')"
+          >
+            利用規約
+          </v-btn>
+          <v-btn
+            text
+            @click="router.push('/legal/privacy')"
+          >
+            プライバシーポリシー
+          </v-btn>
+        </v-card-text>
         <v-card-text class="white--text">
           © {{ new Date().getFullYear() }} Kentaro Masuda.
         </v-card-text>
@@ -102,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref, useContext, useRouter } from '@nuxtjs/composition-api'
 import useWallet from '~/composable/useWallet'
 
 export default defineComponent({
@@ -135,6 +156,9 @@ export default defineComponent({
 
     /** Use wallet */
     const wallet = useWallet()
+
+    /** Use router */
+    const router = useRouter()
 
     /** Drawer */
     const drawer = ref(false)
@@ -282,6 +306,7 @@ export default defineComponent({
     }
 
     return {
+      router,
       drawer,
       walletAddress,
       theSnackbar,
