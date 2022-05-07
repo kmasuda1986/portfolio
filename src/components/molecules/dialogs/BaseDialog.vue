@@ -2,6 +2,8 @@
   <v-dialog
     v-model="isOpen"
     :width="width"
+    :fullscreen="fullscreen"
+    transition="dialog-bottom-transition"
   >
     <v-card
       outlined
@@ -41,6 +43,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: '300'
+    },
+    fullscreen: {
+      type: Boolean,
+      required: false,
+      default: false,
     }
   },
 

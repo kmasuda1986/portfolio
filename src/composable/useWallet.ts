@@ -30,7 +30,7 @@ export default function useWallet() {
    *
    * @returns string
    */
-  const getWalletAddress = () => {
+  const getWalletAddress = (): string => {
     return store.getters.getWalletAddress
   }
 

@@ -2,7 +2,6 @@
   <BaseDialog
     ref="baseDialog"
     title="My wallet"
-    fullscreen
   >
     <template #body>
       <v-card-text
