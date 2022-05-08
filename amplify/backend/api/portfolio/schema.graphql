@@ -10,15 +10,3 @@ type Account @model {
   profileBannerUri: String
   description: String
 }
-
-type Post @model {
-  id: ID!
-  title: String!
-  comments: [Comment] @hasMany
-}
-
-type Comment @model {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
-}
