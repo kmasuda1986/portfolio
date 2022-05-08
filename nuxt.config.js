@@ -27,7 +27,7 @@ export default {
       id: process.env.GOOGLE_ANALYTICS_ID,
     },
     gtm: {
-      id: process.env.GOOGLE_TAG_MANAGER_ID
+      id: process.env.GOOGLE_TAG_MANAGER_ID,
     },
     chainId: process.env.CHAIN_ID,
     chianName: process.env.BC_CHAIN_NAME,
