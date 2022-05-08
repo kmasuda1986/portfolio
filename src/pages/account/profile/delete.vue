@@ -8,14 +8,10 @@
     <v-row justify="center" align="center">
       <v-col class="text-center" cols="12" md="6">
         <p>
-          アカウントを削除しました。<br>
+          アカウントを削除しました。<br />
           3秒後にトップページへ遷移します。
         </p>
-        <v-btn
-          color="light-blue"
-          outlined
-          @click="goToTop"
-        >
+        <v-btn color="light-blue" outlined @click="goToTop">
           トップページへ戻る
         </v-btn>
       </v-col>
@@ -54,4 +50,3 @@ export default defineComponent({
   },
 })
 </script>
-

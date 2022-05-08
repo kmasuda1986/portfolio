@@ -1,20 +1,9 @@
 <template>
-  <BaseDialog
-    ref="baseDialog"
-    title="Connect wallet"
-  >
+  <BaseDialog ref="baseDialog" title="Connect wallet">
     <template #body>
-      <v-card-text
-        class="pt-5"
-        align="center"
-      >
-        <v-img
-          width="150px"
-          :src="src"
-        />
-        <p>
-          ウォレットに接続するとサイドメニューが解放されます。
-        </p>
+      <v-card-text class="pt-5" align="center">
+        <v-img width="150px" :src="src" />
+        <p>ウォレットに接続するとサイドメニューが解放されます。</p>
         <v-btn
           color="light-blue"
           block
@@ -35,7 +24,7 @@ export default defineComponent({
   name: 'MoleculesDialogsWalletConnectDialog',
 
   components: {
-    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue')
+    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue'),
   },
 
   setup() {
@@ -65,9 +54,8 @@ export default defineComponent({
       baseDialog,
       src,
       open,
-      close
+      close,
     }
   },
 })
 </script>
-

@@ -1,15 +1,8 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      right
-      temporary
-    >
+    <v-navigation-drawer v-model="drawer" app right temporary>
       <v-list>
-        <v-list-item
-          @click="drawer = !drawer"
-        >
+        <v-list-item @click="drawer = !drawer">
           <v-list-item-action>
             <v-icon>mdi-close</v-icon>
           </v-list-item-action>
@@ -27,10 +20,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-group
-          prepend-icon="mdi-account-outline"
-          no-action
-        >
+        <v-list-group prepend-icon="mdi-account-outline" no-action>
           <template #activator>
             <v-list-item-title>Your account</v-list-item-title>
           </template>
@@ -51,16 +41,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <WalletInfoDialog
-      ref="walletInfoDialog"
-      :wallet-address="walletAddress"
-    />
+    <WalletInfoDialog ref="walletInfoDialog" :wallet-address="walletAddress" />
     <v-app-bar app>
       <v-spacer />
-      <v-app-bar-nav-icon
-        v-if="walletAddress"
-        @click="drawer = !drawer"
-      />
+      <v-app-bar-nav-icon v-if="walletAddress" @click="drawer = !drawer" />
       <v-btn
         v-else
         color="light-blue"
@@ -68,9 +52,7 @@
         @click="openWalletConnectDialog"
       >
         connect
-        <v-icon right>
-          mdi-wallet
-        </v-icon>
+        <v-icon right> mdi-wallet </v-icon>
       </v-btn>
       <WalletConnectDialog
         ref="walletConnectDialog"
@@ -82,36 +64,13 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <TheSnackbar
-      ref="theSnackbar"
-      :color="theSnackbarColor"
-    />
-    <v-footer
-      dark
-      padless
-    >
-      <v-card
-        class="flex text-center"
-        flat
-        tile
-      >
+    <TheSnackbar ref="theSnackbar" :color="theSnackbarColor" />
+    <v-footer dark padless>
+      <v-card class="flex text-center" flat tile>
         <v-card-text class="pb-0">
-          <v-btn
-            text
-            @click="router.push('/')"
-          >
-            ホーム
-          </v-btn>
-          <v-btn
-            text
-            @click="router.push('/legal/terms')"
-          >
-            利用規約
-          </v-btn>
-          <v-btn
-            text
-            @click="router.push('/legal/privacy')"
-          >
+          <v-btn text @click="router.push('/')"> ホーム </v-btn>
+          <v-btn text @click="router.push('/legal/terms')"> 利用規約 </v-btn>
+          <v-btn text @click="router.push('/legal/privacy')">
             プライバシーポリシー
           </v-btn>
         </v-card-text>
@@ -124,7 +83,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, useRouter } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  useContext,
+  useRouter,
+} from '@nuxtjs/composition-api'
 import useWallet from '~/composable/useWallet'
 
 export default defineComponent({
@@ -132,8 +96,10 @@ export default defineComponent({
 
   components: {
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
-    WalletConnectDialog: () => import('~/components/molecules/dialogs/WalletConnectDialog.vue'),
-    WalletInfoDialog: () => import('~/components/molecules/dialogs/WalletInfoDialog.vue')
+    WalletConnectDialog: () =>
+      import('~/components/molecules/dialogs/WalletConnectDialog.vue'),
+    WalletInfoDialog: () =>
+      import('~/components/molecules/dialogs/WalletInfoDialog.vue'),
   },
 
   setup() {
@@ -225,7 +191,7 @@ export default defineComponent({
           await switchEthereumChain()
 
           // もう一度接続先をチェック
-          if (! await wallet.isChainId(chainId)) {
+          if (!(await wallet.isChainId(chainId))) {
             throw new TypeError('接続がキャンセルされました。')
           }
         }
@@ -240,13 +206,13 @@ export default defineComponent({
         // ネットワークが変更された場合はリロード
         win.ethereum.on('chainChanged', (_chainId: any) => {
           if (chainId !== _chainId) {
-            window.location.reload();
+            window.location.reload()
           }
         })
 
         // ウォレットが切断された場合はリロード
         win.ethereum.on('disconnect', () => {
-          window.location.reload();
+          window.location.reload()
         })
 
         closeWalletConnectDialog()
@@ -281,7 +247,13 @@ export default defineComponent({
      * @returns Promise<any>
      */
     const addEthereumChain = async (): Promise<any> => {
-      const res: any = await wallet.addEthereumChain(chainId, chainName, currencySymbol, rpcUrls, blockExplorerUrl)
+      const res: any = await wallet.addEthereumChain(
+        chainId,
+        chainName,
+        currencySymbol,
+        rpcUrls,
+        blockExplorerUrl
+      )
 
       if (res.status === 'error') {
         throw new Error(res.data.message)

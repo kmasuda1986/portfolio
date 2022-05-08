@@ -1,5 +1,9 @@
 ###
 # Place your Prettier ignore content here
+amplify/*
+src/graphql/*
+src/API.ts
+.vscode/*
 
 ###
 # .gitignore content is duplicated here due to https://github.com/prettier/prettier/issues/8506

@@ -1,13 +1,6 @@
 <template>
-  <v-snackbar
-    v-model="isOpen"
-    :color="color"
-    timeout="3000"
-    outlined
-  >
-    <v-icon :color="color">
-      mdi-spin mdi-octagram
-    </v-icon>
+  <v-snackbar v-model="isOpen" :color="color" timeout="3000" outlined>
+    <v-icon :color="color"> mdi-spin mdi-octagram </v-icon>
     {{ message }}
   </v-snackbar>
 </template>
@@ -23,7 +16,7 @@ export default defineComponent({
       type: String,
       required: false,
       default: 'success',
-    }
+    },
   },
 
   setup() {
@@ -44,9 +37,8 @@ export default defineComponent({
     return {
       isOpen,
       message,
-      open
+      open,
     }
   },
 })
 </script>
-

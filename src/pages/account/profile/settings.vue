@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
     <v-row justify="center" align="center">
-       <v-col cols="12" md="6">
+      <v-col cols="12" md="6">
         <v-btn
           color="red"
           outlined
@@ -40,19 +40,18 @@
         </v-btn>
       </v-col>
     </v-row>
-    <AccountDeleteDialog
-      ref="accountDeleteDialog"
-      @deleteAccount="onDelete"
-    />
-    <TheSnackbar
-      ref="theSnackbar"
-      :color="theSnackbarColor"
-    />
+    <AccountDeleteDialog ref="accountDeleteDialog" @deleteAccount="onDelete" />
+    <TheSnackbar ref="theSnackbar" :color="theSnackbarColor" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useRouter } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  useAsync,
+  useRouter,
+} from '@nuxtjs/composition-api'
 import useAccount from '~/composable/useAccount'
 import useWallet from '~/composable/useWallet'
 import { Account } from '~/types/index'
@@ -61,7 +60,8 @@ export default defineComponent({
   name: 'AccountProfileSettings',
 
   components: {
-    AccountDeleteDialog: () => import('~/components/molecules/dialogs/AccountDeleteDialog.vue'),
+    AccountDeleteDialog: () =>
+      import('~/components/molecules/dialogs/AccountDeleteDialog.vue'),
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
   },
 
@@ -99,7 +99,7 @@ export default defineComponent({
     /** The snackbar color */
     const theSnackbarColor = ref<string>('')
 
-    const openAccountDeleteDialog = ()  => {
+    const openAccountDeleteDialog = () => {
       const refs: any = accountDeleteDialog.value
       refs.open()
     }
@@ -110,8 +110,8 @@ export default defineComponent({
     const getAccount = useAsync(async () => {
       const { data }: any = await account.findOne({
         walletAddress: {
-          eq: wallet.getWalletAddress()
-        }
+          eq: wallet.getWalletAddress(),
+        },
       })
 
       accountData.value = {
@@ -136,7 +136,7 @@ export default defineComponent({
           theSnackbarColor.value = 'success'
           theSnackbar.value.open('更新に成功しました。')
           saveBtnLoading.value = false
-        }, 2000);
+        }, 2000)
       } catch (error: any) {
         theSnackbarColor.value = 'error'
         theSnackbar.value.open(error.message)
@@ -168,4 +168,3 @@ export default defineComponent({
   },
 })
 </script>
-

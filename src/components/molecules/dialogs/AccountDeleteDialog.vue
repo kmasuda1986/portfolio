@@ -7,11 +7,9 @@
     hide-close-btn
   >
     <template #body>
-      <v-card-text
-        class="pt-5"
-      >
+      <v-card-text class="pt-5">
         <p>
-          アカウントを削除しますか？<br>
+          アカウントを削除しますか？<br />
           削除すると復元ができません。
         </p>
         <v-btn
@@ -22,13 +20,7 @@
         >
           アカウントを削除する
         </v-btn>
-        <v-btn
-          class="mt-2"
-          color="red"
-          text
-          block
-          @click="close"
-        >
+        <v-btn class="mt-2" color="red" text block @click="close">
           キャンセル
         </v-btn>
       </v-card-text>
@@ -43,7 +35,7 @@ export default defineComponent({
   name: 'MoleculesDialogsAcountDeleteDialog',
 
   components: {
-    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue')
+    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue'),
   },
 
   setup() {
@@ -69,9 +61,8 @@ export default defineComponent({
     return {
       baseDialog,
       open,
-      close
+      close,
     }
   },
 })
 </script>
-

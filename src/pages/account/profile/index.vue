@@ -5,11 +5,7 @@
         <h2><span class="light-blue--text">P</span>rofile</h2>
       </v-col>
       <v-col class="text-right" cols="6">
-        <v-btn
-          to="/account/profile/settings"
-          color="light-blue"
-          outlined
-        >
+        <v-btn to="/account/profile/settings" color="light-blue" outlined>
           設定
         </v-btn>
       </v-col>
@@ -20,10 +16,7 @@
             <p class="light-blue--text text-4xl font-semibold">
               {{ accountData.username }}
             </p>
-            <AvatarImage
-              class="mb-4"
-              :src="accountData.profileImageUri"
-            />
+            <AvatarImage class="mb-4" :src="accountData.profileImageUri" />
             <v-text-field
               v-model="accountData.walletAddress"
               prepend-inner-icon="mdi-wallet"
@@ -45,15 +38,17 @@
       @createAccount="createAccount"
       @cancel="router.push('/')"
     />
-    <TheSnackbar
-      ref="theSnackbar"
-      color="success"
-    />
+    <TheSnackbar ref="theSnackbar" color="success" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useRouter } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  useAsync,
+  useRouter,
+} from '@nuxtjs/composition-api'
 import useAccount from '~/composable/useAccount'
 import useWallet from '~/composable/useWallet'
 import { Account } from '~/types/index'
@@ -62,7 +57,8 @@ export default defineComponent({
   name: 'AccountProfilePage',
 
   components: {
-    AccountCreateDialog: () => import('~/components/molecules/dialogs/AccountCreateDialog.vue'),
+    AccountCreateDialog: () =>
+      import('~/components/molecules/dialogs/AccountCreateDialog.vue'),
     AvatarImage: () => import('~/components/atoms/AvatarImage.vue'),
     BannerImage: () => import('~/components/atoms/BannerImage.vue'),
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
@@ -115,11 +111,10 @@ export default defineComponent({
     /**
      * createAccount
      */
-    const createAccount = () => {
+    const createAccount = async () => {
       const walletAddress: string = wallet.getWalletAddress()
-      const data: any = account.create(walletAddress)
+      await account.create(walletAddress)
       // TODO: レスポンスを整える
-      console.log('data: ', data)
 
       closeAccountCreateDialog()
       theSnackbar.value.open('アカウント登録に成功しました。')
@@ -132,24 +127,14 @@ export default defineComponent({
       // アカウント情報を取得
       const { data }: any = await account.findOne({
         walletAddress: {
-          eq: wallet.getWalletAddress()
-        }
+          eq: wallet.getWalletAddress(),
+        },
       })
 
       // アカウント情報が存在しない場合は会員登録
       if (data === null) {
-        console.log('データが存在しませんでした。')
         openAccountCreateDialog()
       }
-      /*
-      accountData.value = {
-        walletAddress: wallet.getWalletAddress(),
-        username: '',
-        profileImageUri: '',
-        profileBannerUri: '',
-        description: '',
-      }
-      */
     })
 
     /**
@@ -173,4 +158,3 @@ export default defineComponent({
   },
 })
 </script>
-

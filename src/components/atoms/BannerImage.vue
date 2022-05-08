@@ -1,8 +1,5 @@
 <template>
-  <v-img
-    height="200px"
-    :src="props.src ? props.src : '../no_picture.jpeg'"
-  />
+  <v-img height="200px" :src="props.src ? props.src : '../no_picture.jpeg'" />
 </template>
 
 <script lang="ts">
@@ -21,9 +18,8 @@ export default defineComponent({
 
   setup(props) {
     return {
-      props
+      props,
     }
   },
 })
 </script>
-

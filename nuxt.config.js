@@ -24,7 +24,7 @@ export default {
 
   publicRuntimeConfig: {
     googleAnalytics: {
-      id: process.env.GOOGLE_ANALYTICS_ID
+      id: process.env.GOOGLE_ANALYTICS_ID,
     },
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
@@ -37,9 +37,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '@/assets/app.css'
-  ],
+  css: ['@/assets/app.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [

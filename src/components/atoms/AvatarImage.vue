@@ -1,10 +1,6 @@
 <template>
-  <v-avatar
-    :size="props.size"
-  >
-    <v-img
-      :src="props.src ? props.src : '../no_picture.jpeg'"
-    />
+  <v-avatar :size="props.size">
+    <v-img :src="props.src ? props.src : '../no_picture.jpeg'" />
   </v-avatar>
 </template>
 
@@ -24,14 +20,13 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 100,
-    }
+    },
   },
 
   setup(props) {
     return {
-      props
+      props,
     }
   },
 })
 </script>
-

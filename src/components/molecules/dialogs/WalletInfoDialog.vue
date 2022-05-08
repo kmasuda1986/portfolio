@@ -1,12 +1,7 @@
 <template>
-  <BaseDialog
-    ref="baseDialog"
-    title="My wallet"
-  >
+  <BaseDialog ref="baseDialog" title="My wallet">
     <template #body>
-      <v-card-text
-        class="pt-5"
-      >
+      <v-card-text class="pt-5">
         <div>
           <h2 class="pb-1 white--text">Wallet address</h2>
           <p class="mb-0" v-text="props.walletAddress" />
@@ -23,14 +18,14 @@ export default defineComponent({
   name: 'MoleculesDialogsWalletInfoDialog',
 
   components: {
-    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue')
+    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue'),
   },
 
   props: {
     walletAddress: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   setup(props) {
@@ -57,9 +52,8 @@ export default defineComponent({
       props,
       baseDialog,
       open,
-      close
+      close,
     }
   },
 })
 </script>
-

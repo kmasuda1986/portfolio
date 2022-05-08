@@ -7,25 +7,13 @@
     hide-close-btn
   >
     <template #body>
-      <v-card-text
-        class="pt-5"
-      >
-        <p>
-          サービスを利用する場合は、アカウント登録が必要です。
-        </p>
+      <v-card-text class="pt-5">
+        <p>サービスを利用する場合は、アカウント登録が必要です。</p>
         <p>
           登録することで、
-          <a
-            target="_blank"
-            href="/legal/terms"
-          >
-            利用規約
-          </a>
+          <a target="_blank" href="/legal/terms"> 利用規約 </a>
           及び
-          <a
-            target="_blank"
-            href="https://vuetifyjs.com"
-          >
+          <a target="_blank" href="https://vuetifyjs.com">
             プライバシーポリシー
           </a>
           に同意するものとします。
@@ -38,13 +26,7 @@
         >
           アカウントを作成する
         </v-btn>
-        <v-btn
-          class="mt-2"
-          color="red"
-          text
-          block
-          @click="$emit('cancel')"
-        >
+        <v-btn class="mt-2" color="red" text block @click="$emit('cancel')">
           キャンセル
         </v-btn>
       </v-card-text>
@@ -59,7 +41,7 @@ export default defineComponent({
   name: 'MoleculesDialogsAcountCreateDialog',
 
   components: {
-    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue')
+    BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue'),
   },
 
   setup() {
@@ -85,9 +67,8 @@ export default defineComponent({
     return {
       baseDialog,
       open,
-      close
+      close,
     }
   },
 })
 </script>
-

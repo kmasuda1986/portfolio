@@ -47,8 +47,8 @@ export default function useAccount() {
       query: createAccount,
       variables: {
         input: {
-          walletAddress
-        }
+          walletAddress,
+        },
       },
     })
 
@@ -68,9 +68,9 @@ export default function useAccount() {
       query: deleteAccount,
       variables: {
         input: {
-          id
-        }
-      }
+          id,
+        },
+      },
     })
 
     return {
