@@ -24,7 +24,10 @@ export default {
 
   publicRuntimeConfig: {
     googleAnalytics: {
-      id: process.env.GOOGLE_ANALYTICS_ID
+      id: process.env.GOOGLE_ANALYTICS_ID,
+    },
+    gtm: {
+      id: process.env.GOOGLE_TAG_MANAGER_ID,
     },
     chainId: process.env.CHAIN_ID,
     chianName: process.env.BC_CHAIN_NAME,
@@ -34,12 +37,11 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '@/assets/app.css'
-  ],
+  css: ['@/assets/app.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/amplify.ts', mode: 'client' },
     { src: '~/plugins/vue-typer.ts', mode: 'client' },
   ],
 
@@ -61,6 +63,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/gtm',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -72,6 +75,11 @@ export default {
   'google-gtag': {
     id: process.env.GOOGLE_ANALYTICS_ID,
     debug: false,
+  },
+
+  gtm: {
+    id: process.env.GOOGLE_TAG_MANAGER_ID,
+    pageTracking: true,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

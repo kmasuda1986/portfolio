@@ -2,7 +2,7 @@
 
 増田健太郎のポートフォリオサイト
 
- https://www.hacklab-place.io/
+https://www.hacklab-place.io/
 
 ## 技術要件
 
@@ -37,8 +37,14 @@ https://vuejs.org/guide/reusability/composables.html
 
 ## アーキテクチャ
 
-- Nuxt.js v2に"Nuxt.js Composition API"を導入
-- 状態管理はVuexで行う
-- Composable内でStore（dispatch/getter）の処理を行う
+- Nuxt.js v2 に"Nuxt.js Composition API"を導入
+- 状態管理は Vuex で行う
+- Composable 内で Store（dispatch/getter）の処理を行う
 
 ![store](https://user-images.githubusercontent.com/43663858/166838832-b87e31b3-9f90-45e4-b812-b4d4e57f0106.png)
+
+## ウォレット接続処理
+
+- ウォレット接続後にネットワークを切り替えた場合は、自動的にブラウザをリロードする
+
+![portfolio-01](https://user-images.githubusercontent.com/43663858/167280910-2e7772c8-891a-4c3b-8a72-4289f034d278.png)

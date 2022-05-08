@@ -2,22 +2,15 @@
   <v-dialog
     v-model="isOpen"
     :width="width"
+    :fullscreen="fullscreen"
+    :persistent="persistent"
+    transition="dialog-bottom-transition"
   >
-    <v-card
-      outlined
-    >
-      <v-toolbar
-        color="light-blue"
-        elevation="0"
-        tile
-      >
+    <v-card outlined>
+      <v-toolbar color="light-blue" elevation="0" tile>
         <v-toolbar-title v-text="props.title" />
         <v-spacer />
-        <v-btn
-          icon
-          dark
-          @click="isOpen = false"
-        >
+        <v-btn v-show="!hideCloseBtn" icon dark @click="isOpen = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -35,13 +28,28 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     width: {
       type: String,
       required: false,
-      default: '300'
-    }
+      default: '300',
+    },
+    fullscreen: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    persistent: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    hideCloseBtn: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   setup(props) {
@@ -66,9 +74,8 @@ export default defineComponent({
       props,
       isOpen,
       open,
-      close
+      close,
     }
   },
 })
 </script>
-

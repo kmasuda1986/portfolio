@@ -6,16 +6,16 @@ type Response = {
 }
 
 type AddEthereumChainParameter = {
-  chainId: string; // A 0x-prefixed hexadecimal string
-  chainName: string;
+  chainId: string // A 0x-prefixed hexadecimal string
+  chainName: string
   nativeCurrency: {
-    name: string;
-    symbol: string; // 2-6 characters long
-    decimals: 18;
-  };
-  rpcUrls: string[];
-  blockExplorerUrls?: string[];
-  iconUrls?: string[]; // Currently ignored.
+    name: string
+    symbol: string // 2-6 characters long
+    decimals: 18
+  }
+  rpcUrls: string[]
+  blockExplorerUrls?: string[]
+  iconUrls?: string[] // Currently ignored.
 }
 
 export default function useWallet() {
@@ -30,7 +30,7 @@ export default function useWallet() {
    *
    * @returns string
    */
-  const getWalletAddress = () => {
+  const getWalletAddress = (): string => {
     return store.getters.getWalletAddress
   }
 
@@ -74,21 +74,21 @@ export default function useWallet() {
     try {
       await w.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId }]
+        params: [{ chainId }],
       })
 
       return {
         status: 'success',
-        data: {}
+        data: {},
       }
-    } catch(error: any) {
+    } catch (error: any) {
       if (error.code === 4001) {
         return {
           status: 'error',
           data: {
             code: 4001,
             message: '接続がキャンセルされました。',
-          }
+          },
         }
       } else if (error.code === 4902) {
         return {
@@ -96,7 +96,7 @@ export default function useWallet() {
           data: {
             code: 4902,
             message: 'ネットワークが登録されていませんでした。',
-          }
+          },
         }
       } else {
         return {
@@ -104,7 +104,7 @@ export default function useWallet() {
           data: {
             code: 9999,
             message: '接続エラーが発生しました。',
-          }
+          },
         }
       }
     }
@@ -113,11 +113,11 @@ export default function useWallet() {
   /**
    * addEthereumChain
    *
-   * @param chainId 
-   * @param chainName 
-   * @param currencySymbol 
-   * @param rpcUrl 
-   * @param blockExplorerUrl 
+   * @param chainId
+   * @param chainName
+   * @param currencySymbol
+   * @param rpcUrl
+   * @param blockExplorerUrl
    * @returns Promise<Response>
    */
   const addEthereumChain = async (
@@ -141,12 +141,12 @@ export default function useWallet() {
 
       await w.ethereum.request({
         method: 'wallet_addEthereumChain',
-        params: [ params ],
+        params: [params],
       })
 
       return {
         status: 'success',
-        data: {}
+        data: {},
       }
     } catch (error: any) {
       if (error.code === 4001) {
@@ -155,7 +155,7 @@ export default function useWallet() {
           data: {
             code: 4001,
             message: '接続がキャンセルされました。',
-          }
+          },
         }
       } else {
         return {
@@ -163,7 +163,7 @@ export default function useWallet() {
           data: {
             code: 9999,
             message: '接続エラーが発生しました。',
-          }
+          },
         }
       }
     }
@@ -179,12 +179,12 @@ export default function useWallet() {
       const accounts = await w.ethereum.request({
         method: 'eth_requestAccounts',
       })
-      
+
       return {
         status: 'success',
         data: {
-          account: accounts[0]
-        }
+          account: accounts[0],
+        },
       }
     } catch (error: any) {
       if (error.code === 4001) {
@@ -193,7 +193,7 @@ export default function useWallet() {
           data: {
             code: 4001,
             message: '接続がキャンセルされました。',
-          }
+          },
         }
       } else {
         return {
@@ -201,7 +201,7 @@ export default function useWallet() {
           data: {
             code: 9999,
             message: '接続エラーが発生しました。',
-          }
+          },
         }
       }
     }
