@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-named-as-default
 import API from '@aws-amplify/api'
 import { listAccounts } from '~/graphql/queries'
-import { createAccount } from '~/graphql/mutations'
+import { createAccount, deleteAccount } from '~/graphql/mutations'
 import { ModelAccountFilterInput } from '~/API'
 
 type Response = {
@@ -52,7 +52,26 @@ export default function useAccount() {
       },
     })
 
-    console.log('ポコチン: ', data)
+    return {
+      status: 'success',
+      data,
+    }
+  }
+
+  /**
+   * destroy
+   *
+   * @param id string
+   */
+  const destroy = async (id: string) => {
+    await API.graphql({
+      query: deleteAccount,
+      variables: {
+        input: {
+          id
+        }
+      }
+    })
 
     return {
       status: 'success',
@@ -63,5 +82,6 @@ export default function useAccount() {
   return {
     findOne,
     create,
+    destroy,
   }
 }

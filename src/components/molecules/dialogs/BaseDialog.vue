@@ -3,6 +3,7 @@
     v-model="isOpen"
     :width="width"
     :fullscreen="fullscreen"
+    :persistent="persistent"
     transition="dialog-bottom-transition"
   >
     <v-card
@@ -16,6 +17,7 @@
         <v-toolbar-title v-text="props.title" />
         <v-spacer />
         <v-btn
+          v-show="!hideCloseBtn"
           icon
           dark
           @click="isOpen = false"
@@ -48,7 +50,17 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false,
-    }
+    },
+    persistent: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    hideCloseBtn: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   setup(props) {

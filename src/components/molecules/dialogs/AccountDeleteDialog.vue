@@ -1,7 +1,7 @@
 <template>
   <BaseDialog
     ref="baseDialog"
-    title="アカウント登録"
+    title="アカウント削除"
     width="500"
     persistent
     hide-close-btn
@@ -11,39 +11,23 @@
         class="pt-5"
       >
         <p>
-          サービスを利用する場合は、アカウント登録が必要です。
-        </p>
-        <p>
-          登録することで、
-          <a
-            target="_blank"
-            href="/legal/terms"
-          >
-            利用規約
-          </a>
-          及び
-          <a
-            target="_blank"
-            href="https://vuetifyjs.com"
-          >
-            プライバシーポリシー
-          </a>
-          に同意するものとします。
+          アカウントを削除しますか？<br>
+          削除すると復元ができません。
         </p>
         <v-btn
           color="light-blue"
           outlined
           block
-          @click="$emit('createAccount')"
+          @click="$emit('deleteAccount')"
         >
-          アカウントを作成する
+          アカウントを削除する
         </v-btn>
         <v-btn
           class="mt-2"
           color="red"
           text
           block
-          @click="$emit('cancel')"
+          @click="close"
         >
           キャンセル
         </v-btn>
@@ -56,7 +40,7 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'MoleculesDialogsAcountCreateDialog',
+  name: 'MoleculesDialogsAcountDeleteDialog',
 
   components: {
     BaseDialog: () => import('~/components/molecules/dialogs/BaseDialog.vue')

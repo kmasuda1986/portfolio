@@ -32,7 +32,7 @@
           no-action
         >
           <template #activator>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>Your account</v-list-item-title>
           </template>
           <v-list-item link to="/account/profile">
             <v-list-item-title v-text="'Profile'" />
@@ -43,6 +43,7 @@
             </v-list-item-action>
           </v-list-item>
         </v-list-group>
+
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title v-text="'追加機能開発中...'" />
@@ -71,10 +72,6 @@
           mdi-wallet
         </v-icon>
       </v-btn>
-      <AccountCreateDialog
-        ref="accountCreateDialog"
-        @createAccount="createAccount"
-      />
       <WalletConnectDialog
         ref="walletConnectDialog"
         @connectWallet="connectWallet"
@@ -127,15 +124,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useContext, useRouter } from '@nuxtjs/composition-api'
-import useAccount from '~/composable/useAccount'
+import { defineComponent, ref, useContext, useRouter } from '@nuxtjs/composition-api'
 import useWallet from '~/composable/useWallet'
 
 export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
-    AccountCreateDialog: () => import('~/components/molecules/dialogs/AccountCreateDialog.vue'),
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
     WalletConnectDialog: () => import('~/components/molecules/dialogs/WalletConnectDialog.vue'),
     WalletInfoDialog: () => import('~/components/molecules/dialogs/WalletInfoDialog.vue')
@@ -160,9 +155,6 @@ export default defineComponent({
     /** blockExplorerUrl */
     const blockExplorerUrl = $config.blockExplorerUrl
 
-    /** Use Account */
-    const account = useAccount()
-
     /** Use wallet */
     const wallet = useWallet()
 
@@ -181,27 +173,11 @@ export default defineComponent({
     /** The snackbar color */
     const theSnackbarColor = ref<string>('')
 
-    /** Acount create dialog */
-    const accountCreateDialog = ref<any>(null)
-
     /** Wallet connect dialog */
     const walletConnectDialog = ref<any>(null)
 
     /** Wallet infomation dialog */
     const walletInfoDialog = ref<any>(null)
-
-    /**
-     * onMounted
-     */
-    onMounted(() => {})
-
-    /**
-     * openAccountCreateDialog
-     */
-    const openAccountCreateDialog = () => {
-      const refs: any = accountCreateDialog.value
-      refs.open()
-    }
 
     /**
      * openWalletConnectDialog
@@ -262,8 +238,10 @@ export default defineComponent({
         walletAddress.value = wallet.getWalletAddress()
 
         // ネットワークが変更された場合はリロード
-        win.ethereum.on('chainChanged', () => {
-          window.location.reload();
+        win.ethereum.on('chainChanged', (_chainId: any) => {
+          if (chainId !== _chainId) {
+            window.location.reload();
+          }
         })
 
         // ウォレットが切断された場合はリロード
@@ -275,20 +253,6 @@ export default defineComponent({
 
         theSnackbarColor.value = 'success'
         theSnackbar.value.open('接続に成功しました。')
-
-        // アカウント情報を取得
-        const { data }: any = await account.findOne({
-          walletAddress: {
-            eq: wallet.getWalletAddress()
-          }
-        })
-
-        // アカウント情報が存在しない場合は会員登録
-        if (data === null) {
-          openAccountCreateDialog()
-        }
-
-
       } catch (error: any) {
         theSnackbarColor.value = 'error'
         theSnackbar.value.open(error.message)
@@ -339,26 +303,14 @@ export default defineComponent({
       return res.data.account
     }
 
-    /**
-     * createAccount
-     */
-    const createAccount = () => {
-      const walletAddress: string = wallet.getWalletAddress()
-      const data: any = account.create(walletAddress)
-  
-      console.log('data: ', data)
-    }
-
     return {
       router,
       drawer,
       walletAddress,
       theSnackbar,
       theSnackbarColor,
-      accountCreateDialog,
       walletConnectDialog,
       walletInfoDialog,
-      openAccountCreateDialog,
       openWalletConnectDialog,
       closeWalletConnectDialog,
       openWalletInfoDialog,
@@ -366,7 +318,6 @@ export default defineComponent({
       switchEthereumChain,
       addEthereumChain,
       requestAccounts,
-      createAccount,
     }
   },
 })

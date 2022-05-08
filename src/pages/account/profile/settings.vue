@@ -8,25 +8,42 @@
     <v-row justify="center" align="center">
       <v-col cols="12" md="6">
         <v-text-field
-          v-model="account.walletAddress"
+          v-model="accountData.walletAddress"
           label="Wallet address"
           disabled
           outlined
         />
         <v-text-field
-          v-model="account.username"
+          v-model="accountData.username"
           label="Username"
           outlined
         />
         <v-btn
           color="light-blue"
           :loading="saveBtnLoading"
+          outlined
           @click="onSave"
         >
-          save
+          保存
         </v-btn>
       </v-col>
     </v-row>
+    <v-row justify="center" align="center">
+       <v-col cols="12" md="6">
+        <v-btn
+          color="red"
+          outlined
+          :loading="saveBtnLoading"
+          @click="openAccountDeleteDialog"
+        >
+          アカウントを削除
+        </v-btn>
+      </v-col>
+    </v-row>
+    <AccountDeleteDialog
+      ref="accountDeleteDialog"
+      @deleteAccount="onDelete"
+    />
     <TheSnackbar
       ref="theSnackbar"
       :color="theSnackbarColor"
@@ -35,7 +52,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useAsync, useRouter } from '@nuxtjs/composition-api'
+import useAccount from '~/composable/useAccount'
 import useWallet from '~/composable/useWallet'
 import { Account } from '~/types/index'
 
@@ -43,20 +61,37 @@ export default defineComponent({
   name: 'AccountProfileSettings',
 
   components: {
+    AccountDeleteDialog: () => import('~/components/molecules/dialogs/AccountDeleteDialog.vue'),
     TheSnackbar: () => import('~/components/atoms/TheSnackbar.vue'),
   },
 
   middleware: ['auth'],
 
   setup() {
+    /** Use router */
+    const router = useRouter()
+
+    /** Use account */
+    const account = useAccount()
+
     /** Use wallet */
     const wallet = useWallet()
 
     /** Account data */
-    const account = ref<Account>()
+    const accountData = ref<Account>({
+      id: '',
+      walletAddress: '',
+      username: '',
+      profileImageUri: '',
+      profileBannerUri: '',
+      description: '',
+    })
 
     /** Save buttom loading flug */
     const saveBtnLoading = ref<boolean>(false)
+
+    /** Account delete dialog */
+    const accountDeleteDialog = ref<any>(null)
 
     /** The snackbar */
     const theSnackbar = ref<any>(null)
@@ -64,13 +99,25 @@ export default defineComponent({
     /** The snackbar color */
     const theSnackbarColor = ref<string>('')
 
+    const openAccountDeleteDialog = ()  => {
+      const refs: any = accountDeleteDialog.value
+      refs.open()
+    }
+
     /**
      * Get account
      */
-    const getAccount = useAsync(() => {
-      account.value = {
+    const getAccount = useAsync(async () => {
+      const { data }: any = await account.findOne({
+        walletAddress: {
+          eq: wallet.getWalletAddress()
+        }
+      })
+
+      accountData.value = {
+        id: data.id,
         walletAddress: wallet.getWalletAddress(),
-        username: '',
+        username: data.username,
         profileImageUri: '',
         profileBannerUri: '',
         description: '',
@@ -96,13 +143,27 @@ export default defineComponent({
       }
     }
 
+    /**
+     * onDelete
+     *
+     * @returns Promise<any>
+     */
+    const onDelete = async (): Promise<any> => {
+      await account.destroy(accountData.value.id)
+
+      router.push('/account/profile/delete')
+    }
+
     return {
-      account,
+      accountData,
       saveBtnLoading,
+      accountDeleteDialog,
       theSnackbar,
       theSnackbarColor,
+      openAccountDeleteDialog,
       getAccount,
-      onSave
+      onSave,
+      onDelete,
     }
   },
 })
