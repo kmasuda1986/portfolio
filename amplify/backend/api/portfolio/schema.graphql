@@ -6,19 +6,7 @@ type Account @model {
   id: ID!
   walletAddress: String
   username: String
-  profileImageUri: String
-  profileBannerUri: String
-  description: String
-}
-
-type Post @model {
-  id: ID!
-  title: String!
-  comments: [Comment] @hasMany
-}
-
-type Comment @model {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
+  profileImageKey: String
+  profileBannerKey: String
+  biography: String
 }

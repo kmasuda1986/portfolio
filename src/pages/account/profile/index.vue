@@ -13,21 +13,23 @@
         <v-card flat>
           <BannerImage :src="accountData.profileBannerUri" />
           <v-card-text class="text-center">
-            <p class="light-blue--text text-4xl font-semibold">
+            <AvatarImage class="my-2" :src="profileImageUri" />
+            <p class="mb-2 light-blue--text text-4xl font-semibold">
               {{ accountData.username }}
             </p>
-            <AvatarImage class="mb-4" :src="accountData.profileImageUri" />
-            <v-text-field
-              v-model="accountData.walletAddress"
-              prepend-inner-icon="mdi-wallet"
-              append-outer-icon="mdi-content-copy"
-              outlined
-              dense
-              readonly
-              @click:append-outer="copyText(accountData.walletAddress)"
-            />
-            <p class="mb-0">
-              {{ accountData.description }}
+            <p
+              class="mb-2 pointer"
+              @click="copyText(accountData.walletAddress)"
+            >
+              <v-icon class="pb-1" color="grey" small>mdi-wallet</v-icon>
+              {{
+                accountData.walletAddress.substr(0, 6) +
+                '...' +
+                accountData.walletAddress.substr(38, 4)
+              }}
+            </p>
+            <p class="mb-2">
+              {{ accountData.biography }}
             </p>
           </v-card-text>
         </v-card>
@@ -50,6 +52,7 @@ import {
   useRouter,
 } from '@nuxtjs/composition-api'
 import useAccount from '~/composable/useAccount'
+import useStorage from '~/composable/useStorage'
 import useWallet from '~/composable/useWallet'
 import { Account } from '~/types/index'
 
@@ -73,6 +76,9 @@ export default defineComponent({
     /** Use account */
     const account = useAccount()
 
+    /** Use storage */
+    const storage = useStorage()
+
     /** Use wallet */
     const wallet = useWallet()
 
@@ -81,10 +87,13 @@ export default defineComponent({
       id: '',
       walletAddress: wallet.getWalletAddress(),
       username: '',
-      profileImageUri: '',
-      profileBannerUri: '',
-      description: '',
+      profileImageKey: '',
+      profileBannerKey: '',
+      biography: '',
     })
+
+    /** Profile image uri */
+    const profileImageUri = ref<string>('')
 
     /** Acount create dialog */
     const accountCreateDialog = ref<any>(null)
@@ -134,6 +143,17 @@ export default defineComponent({
       // アカウント情報が存在しない場合は会員登録
       if (data === null) {
         openAccountCreateDialog()
+      } else {
+        accountData.value = {
+          id: data.id,
+          walletAddress: data.walletAddress,
+          username: data.username,
+          profileImageKey: '',
+          profileBannerKey: '',
+          biography: data.biography,
+        }
+
+        profileImageUri.value = await storage.get(data.profileImageKey)
       }
     })
 
@@ -148,6 +168,7 @@ export default defineComponent({
     return {
       router,
       accountData,
+      profileImageUri,
       accountCreateDialog,
       theSnackbar,
       openAccountCreateDialog,

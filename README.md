@@ -8,10 +8,35 @@ https://www.hacklab-place.io/
 
 - AWS Amplify
 - Amazon S3
+- Amazon DynamoDB
 - Github
 - Nuxt.js
 - Vue.js
 - TypeScript
+
+## 画像種別
+
+アップロードできる画像の種別
+
+| 画像種別           | 推奨           | 最大サイズ |
+| ------------------ | -------------- | ---------- |
+| プロフィール画像   | 350px x 350px  | 100MB      |
+| プロフィールバナー | 1400px x 400px | 100MB      |
+
+## Amazon S3 Bucket
+
+- ファイル名は「accountId + 拡張子」
+
+```bash
+portfolio (Bucket)
+ └ image
+    ├ profile-banner
+    │  ├ account_01.png
+    │  └ account_02.png
+    └ profile-iamge
+       ├ account_01.png
+       └ account_02.png
+```
 
 ## ディレクトリ構造
 
@@ -21,9 +46,9 @@ portfolio
  └ src
     ├ assets
     ├ components --- Atomic Designを導入
-       ├ atoms --- UIパーツ
-       ├ molecules --- Atomsを組み合わせたUIパーツ
-       └ organisms --- 複数のAtoms, Moleculesを持つUI
+    │  ├ atoms --- UIパーツ
+    │  ├ molecules --- Atomsを組み合わせたUIパーツ
+    │  └ organisms --- 複数のAtoms, Moleculesを持つUI
     ├ composable --- VueコンポジションAPIを活用してステートフルロジックをカプセル化して再利用する関数
     ├ layouts
     ├ pages --- アプリケーションのルート, APIコール, Composableインポート
