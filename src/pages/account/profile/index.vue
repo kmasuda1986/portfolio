@@ -148,12 +148,14 @@ export default defineComponent({
           id: data.id,
           walletAddress: data.walletAddress,
           username: data.username,
-          profileImageKey: '',
+          profileImageKey: data.profileImageKey,
           profileBannerKey: '',
           biography: data.biography,
         }
 
-        profileImageUri.value = await storage.get(data.profileImageKey)
+        if (data.profileImageKey) {
+          profileImageUri.value = await storage.get(data.profileImageKey)
+        }
       }
     })
 

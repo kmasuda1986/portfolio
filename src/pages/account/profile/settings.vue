@@ -200,7 +200,9 @@ export default defineComponent({
         biography: data.biography,
       }
 
-      profileImageUri.value = await storage.get(data.profileImageKey)
+      if (data.profileImageKey) {
+        profileImageUri.value = await storage.get(data.profileImageKey)
+      }
     })
 
     /**
@@ -222,7 +224,9 @@ export default defineComponent({
         biography: data.biography,
       }
 
-      profileImageUri.value = await storage.get(data.profileImageKey)
+      if (data.profileImageKey) {
+        profileImageUri.value = await storage.get(data.profileImageKey)
+      }
     }
 
     /**
