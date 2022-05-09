@@ -27,10 +27,11 @@
       </v-col>
       <v-col class="text-center" cols="12">
         <p>
+          様々な機能をアップデートしていく予定です。<br />
           当該サイトのソースコード<br />
           AWS Amplify + Nuxt.js + TypeScript
         </p>
-        <v-btn color="light-blue" outlined @click="goto">
+        <v-btn color="light-blue" outlined @click="goto('https://github.com/kmasuda1986/portfolio')">
           Github
           <v-icon right> mdi-github </v-icon>
         </v-btn>
@@ -125,6 +126,40 @@
             <p v-html="career.descriptioin" />
           </v-card-text>
         </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row class="mt-10 mb-15" justify="center" align="center">
+      <v-col class="text-center" cols="12">
+        <h1>お問合せ</h1>
+      </v-col>
+      <v-col class="text-center" cols="12">
+        <p>
+          開発の相談や依頼がございましたら、下記メールアドレスかSNSでご連絡いただければ幸いです。
+        </p>
+        <p>
+          kentarou_masuda@hacklab-tech.io
+        </p>
+        <v-btn icon @click="goto('https://www.facebook.com/kentarou.desse')">
+          <v-icon color="light-blue">
+            mdi-facebook
+          </v-icon>
+        </v-btn>
+        <v-btn icon @click="goto('https://www.instagram.com/kentarou_masuda')">
+          <v-icon color="pink">
+            mdi-instagram
+          </v-icon>
+        </v-btn>
+        <v-btn icon @click="goto('https://twitter.com/KentarouSB')">
+          <v-icon color="light-blue">
+            mdi-twitter
+          </v-icon>
+        </v-btn>
+        <v-btn icon @click="goto('https://www.linkedin.com/in/kentarou-masuda-723a64168/')">
+          <v-icon color="blue">
+            mdi-linkedin
+          </v-icon>
+        </v-btn>
       </v-col>
     </v-row>
   </div>
@@ -233,8 +268,8 @@ export default defineComponent({
     /**
      * goto
      */
-    const goto = () => {
-      window.open('https://github.com/kmasuda1986/portfolio', '_blank')
+    const goto = (uri: string) => {
+      window.open(uri, '_blank')
     }
 
     return {

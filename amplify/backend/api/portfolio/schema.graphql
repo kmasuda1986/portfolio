@@ -6,7 +6,7 @@ type Account @model {
   id: ID!
   walletAddress: String
   username: String
-  profileImageUri: String
-  profileBannerUri: String
-  description: String
+  profileImageKey: String
+  profileBannerKey: String
+  biography: String
 }

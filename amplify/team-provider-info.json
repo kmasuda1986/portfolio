@@ -17,6 +17,10 @@
           "appId": "d1k8lab7b5oor7",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "portfolio641fdfa3": {},
+        "true": {}
       }
     }
   }

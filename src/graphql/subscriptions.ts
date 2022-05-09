@@ -8,9 +8,9 @@ export const onCreateAccount = /* GraphQL */ `
       id
       walletAddress
       username
-      profileImageUri
-      profileBannerUri
-      description
+      profileImageKey
+      profileBannerKey
+      biography
       createdAt
       updatedAt
     }
@@ -22,9 +22,9 @@ export const onUpdateAccount = /* GraphQL */ `
       id
       walletAddress
       username
-      profileImageUri
-      profileBannerUri
-      description
+      profileImageKey
+      profileBannerKey
+      biography
       createdAt
       updatedAt
     }
@@ -36,9 +36,9 @@ export const onDeleteAccount = /* GraphQL */ `
       id
       walletAddress
       username
-      profileImageUri
-      profileBannerUri
-      description
+      profileImageKey
+      profileBannerKey
+      biography
       createdAt
       updatedAt
     }

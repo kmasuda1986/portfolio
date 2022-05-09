@@ -1,6 +1,6 @@
 <template>
   <v-avatar :size="props.size">
-    <v-img :src="props.src ? props.src : '../no_picture.jpeg'" />
+    <v-img :src="props.src ? props.src : require('~/assets/image/no_picture.jpeg')" />
   </v-avatar>
 </template>
 

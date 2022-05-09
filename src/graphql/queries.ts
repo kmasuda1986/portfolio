@@ -8,9 +8,9 @@ export const getAccount = /* GraphQL */ `
       id
       walletAddress
       username
-      profileImageUri
-      profileBannerUri
-      description
+      profileImageKey
+      profileBannerKey
+      biography
       createdAt
       updatedAt
     }
@@ -27,9 +27,9 @@ export const listAccounts = /* GraphQL */ `
         id
         walletAddress
         username
-        profileImageUri
-        profileBannerUri
-        description
+        profileImageKey
+        profileBannerKey
+        biography
         createdAt
         updatedAt
       }
