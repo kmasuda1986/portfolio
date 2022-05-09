@@ -1,7 +1,11 @@
 // eslint-disable-next-line import/no-named-as-default
 import API from '@aws-amplify/api'
 import { listAccounts } from '~/graphql/queries'
-import { createAccount, updateAccount, deleteAccount } from '~/graphql/mutations'
+import {
+  createAccount,
+  updateAccount,
+  deleteAccount,
+} from '~/graphql/mutations'
 import { ModelAccountFilterInput, UpdateAccountInput } from '~/API'
 
 type Response = {
@@ -65,8 +69,8 @@ export default function useAccount() {
     await API.graphql({
       query: updateAccount,
       variables: {
-        input
-      }
+        input,
+      },
     })
   }
 

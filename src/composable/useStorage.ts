@@ -1,4 +1,4 @@
-import { Storage } from 'aws-amplify';
+import { Storage } from 'aws-amplify'
 
 type CreateStorageKeyInput = {
   imageType: string
@@ -29,19 +29,19 @@ export default function useStorage() {
   /**
    * put
    *
-   * @param storageKey 
-   * @param file 
+   * @param storageKey
+   * @param file
    * @returns Promise<string>
    */
   const put = async (storageKey: string, file: any): Promise<string> => {
     const result = await Storage.put(storageKey, file)
-    
+
     return result.key
   }
 
   return {
     createStorageKey,
     get,
-    put
+    put,
   }
 }

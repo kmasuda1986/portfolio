@@ -17,9 +17,16 @@
             <p class="mb-2 light-blue--text text-4xl font-semibold">
               {{ accountData.username }}
             </p>
-            <p class="mb-2 pointer" @click="copyText(accountData.walletAddress)">
+            <p
+              class="mb-2 pointer"
+              @click="copyText(accountData.walletAddress)"
+            >
               <v-icon class="pb-1" color="grey" small>mdi-wallet</v-icon>
-              {{ accountData.walletAddress.substr(0, 6) + '...' + accountData.walletAddress.substr(38, 4) }}
+              {{
+                accountData.walletAddress.substr(0, 6) +
+                '...' +
+                accountData.walletAddress.substr(38, 4)
+              }}
             </p>
             <p class="mb-2">
               {{ accountData.biography }}

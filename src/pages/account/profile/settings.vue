@@ -159,7 +159,7 @@ export default defineComponent({
     })
 
     /** Profile image file */
-    const profileImageFile = ref<File|null>(null)
+    const profileImageFile = ref<File | null>(null)
 
     /** Profile image uri */
     const profileImageUri = ref<string>('')
@@ -239,11 +239,14 @@ export default defineComponent({
           const storageKey = storage.createStorageKey({
             imageType: 'profileImage',
             accountId: accountData.value.id,
-            extension: `.${profileImageFile.value.name.split('.').pop()}`
+            extension: `.${profileImageFile.value.name.split('.').pop()}`,
           })
 
           // S3にアップロードしたキーをセット
-          accountData.value.profileImageKey = await storage.put(storageKey, profileImageFile.value)
+          accountData.value.profileImageKey = await storage.put(
+            storageKey,
+            profileImageFile.value
+          )
         }
 
         await account.update(accountData.value)
